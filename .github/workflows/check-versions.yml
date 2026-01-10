@@ -1,0 +1,36 @@
+name: Check Version Consistency
+
+on:
+  pull_request:
+    paths:
+      - "packages/*/package.json"
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - "packages/*/package.json"
+
+jobs:
+  check-versions:
+    name: Verify unified package versions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check version consistency
+        run: |
+          echo "🔍 Checking that all packages have the same version..."
+          node .scripts/check-versions.js
+
+      - name: Report success
+        if: success()
+        run: |
+          echo "✅ All package versions are consistent!"
+          echo "This is required for monorepo releases (similar to Next.js approach)"

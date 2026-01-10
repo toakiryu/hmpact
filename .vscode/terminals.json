@@ -1,0 +1,24 @@
+{
+  "autorun": false,
+  "terminals": [
+    {
+      "name": "Root",
+      "focus": true
+    },
+    {
+      "name": "hmpact",
+      "description": "CLI package development terminal",
+      "cwd": "${workspaceFolder}/packages/cli"
+    },
+    {
+      "name": "@hmpact/core",
+      "description": "Core package development terminal",
+      "cwd": "${workspaceFolder}/packages/core"
+    },
+    {
+      "name": "@hmpact/logger",
+      "description": "Logger package development terminal",
+      "cwd": "${workspaceFolder}/packages/logger"
+    }
+  ]
+}

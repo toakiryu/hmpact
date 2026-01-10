@@ -1,0 +1,69 @@
+{
+  "name": "@hmpact/core",
+  "type": "module",
+  "version": "0.0.1-beta.1",
+  "description": "",
+  "author": "toakiryu <toakiryu@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "cli",
+    "tool"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toakiryu/hmpact.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/toakiryu/hmpact/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "pnpm build:info && node ../../.scripts/build-esbuild.js",
+    "build:info": "node ../../.scripts/build-info.js",
+    "typecheck": "tsc --noEmit",
+    "t:pack": "pnpm pack",
+    "prepack": "pnpm build",
+    "lint": "eslint",
+    "format": "prettier --write ."
+  },
+  "files": [
+    "dist",
+    "build-info.json"
+  ],
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "dependencies": {
+    "@hmpact/logger": "workspace:^",
+    "cacache": "^20.0.3",
+    "chalk": "^5.6.2",
+    "commander": "^14.0.2",
+    "deepmerge": "^4.3.1",
+    "figlet": "^1.9.4",
+    "gradient-string": "^3.0.0",
+    "isomorphic-unfetch": "^4.0.2",
+    "jsonc-parser": "^3.3.1",
+    "ora": "^9.0.0",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@types/cacache": "^20.0.0",
+    "@types/figlet": "^1.7.0",
+    "@types/node": "^24.10.1",
+    "@typescript-eslint/parser": "^8.52.0",
+    "esbuild": "^0.27.1",
+    "eslint": "^9.39.1",
+    "glob": "^11.0.0",
+    "prettier": "^3.7.4",
+    "tsc-alias": "^1.8.16",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.20.0"
+}

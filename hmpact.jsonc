@@ -1,0 +1,37 @@
+{
+  "lang": {
+    "packs": {
+      "en": "https://raw.githubusercontent.com/toakiryu/hmpact/refs/heads/toaki/main/assets/lang/en.jsonc",
+      "ja": "https://raw.githubusercontent.com/toakiryu/hmpact/refs/heads/toaki/main/assets/lang/ja.jsonc"
+    }
+  },
+  "registries": {
+    "motion.dev": {
+      "rule": {
+        "format": "//api.motion.dev/registry?package={pkg}#version={ver}#token={:env.MOTION_TOKEN}"
+      }
+    },
+    ":example": {
+      "rule": {
+        "format": "//example.com/r/<pkg>/-/<ver>",
+        "header": {
+          "Authorization": "Bearer {:env.YOUR_TOKEN}"
+        }
+      }
+    },
+    "registry.npmjs.org": {
+      "rule": {
+        "format": "//registry.npmjs.org/@{org}/{pkg}/-/{pkg}-{ver}.tgz"
+      }
+    }
+  },
+  "dependencies": {
+    "motion.dev": {
+      "motion-plus": "latest",
+      "motion-studio": "^1.5.7"
+    },
+    ":example": {
+      "www": "1.0.0"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "hmpact",
+  "type": "module",
+  "version": "0.0.1-beta.1",
+  "description": "",
+  "author": "toakiryu <toakiryu@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "cli",
+    "tool"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toakiryu/hmpact.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/toakiryu/hmpact/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typecheck": "tsc --noEmit",
+    "t:pack": "pnpm pack",
+    "lint": "eslint",
+    "format": "prettier --write ."
+  },
+  "files": [
+    "bin"
+  ],
+  "bin": {
+    "hmpact": "bin/hmpact.mjs",
+    "hmpact-cli": "bin/hmpact.mjs"
+  },
+  "dependencies": {
+    "@hmpact/core": "workspace:^"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "version": "0.0.3-beta.15",
+  "lang": "ja",
+  "mapping": {
+    "test": "これはテスト文字列です。"
+  }
+}

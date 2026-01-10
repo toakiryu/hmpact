@@ -1,0 +1,91 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Optional: force the publish dist-tag (e.g. latest, beta, rc)"
+        required: false
+
+jobs:
+  check-version:
+    name: Check unified package versions (monorepo)
+    runs-on: ubuntu-latest
+    outputs:
+      unified_version: ${{ steps.check_unified.outputs.unified_version }}
+      base_version: ${{ steps.check_unified.outputs.base_version }}
+      prerelease: ${{ steps.check_unified.outputs.prerelease }}
+      publish_tag: ${{ steps.check_unified.outputs.publish_tag }}
+      changed: ${{ steps.check_changed.outputs.changed }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Setup Node.js (internal)
+        uses: toakiryu/workflows/setup-js@v1
+        with:
+          fetch-all: true
+
+      - id: check_unified
+        name: Check unified versions across all packages
+        run: |
+          set -e
+          echo "🔍 Checking version consistency across monorepo packages..."
+          node .scripts/check-versions.js
+
+      - id: check_changed
+        name: Compare with previous version
+        run: |
+          set -e
+          
+          # Get current unified version
+          CUR="${{ steps.check_unified.outputs.unified_version }}"
+          
+          if [ -z "$CUR" ]; then
+            echo "❌ Failed to detect unified version"
+            exit 1
+          fi
+
+          # previous commit SHA (for push events)
+          PREV_SHA=''
+          if [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            PREV_SHA=${{ github.event.before }}
+          fi
+
+          PREV=''
+          if [ -n "$PREV_SHA" ]; then
+            # Check first package (packages/core/package.json) from previous commit
+            if git show "$PREV_SHA":packages/core/package.json > /tmp/prev_package.json 2>/dev/null; then
+              PREV=$(node -e "console.log(require('/tmp/prev_package.json').version || '')") || PREV=''
+            fi
+          fi
+
+          # decide changed
+          CHANGED=false
+          if [ "$CUR" != "$PREV" ]; then
+            CHANGED=true
+          fi
+
+          echo "changed=$CHANGED" >> $GITHUB_OUTPUT
+          
+          echo "📊 Version comparison:"
+          echo "   Current: $CUR"
+          echo "   Previous: $PREV"
+          echo "   Changed: $CHANGED"
+
+  release:
+    needs: check-version
+    if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/') || needs.check-version.outputs.changed == 'true' }}
+    uses: toakiryu/workflows/.github/workflows/release.yml@v1
+    with:
+      publish: true
+      tag: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag && github.event.inputs.tag || needs.check-version.outputs.publish_tag }}
+    permissions:
+      contents: write
+      id-token: write

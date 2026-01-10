@@ -1,0 +1,10 @@
+{
+  "registries": [
+    {
+      "id": "motion.dev",
+      "rule": {
+        "format": "//api.motion.dev/registry?package={pkg}#version={ver}#token={:env.MOTION_TOKEN}"
+      }
+    }
+  ]
+}

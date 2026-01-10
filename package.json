@@ -1,0 +1,41 @@
+{
+  "name": "@hmpact/workspace",
+  "type": "module",
+  "description": "",
+  "author": "toakiryu <toakiryu@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "cli",
+    "tool"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toakiryu/hmpact.git"
+  },
+  "bugs": {
+    "url": "https://github.com/toakiryu/hmpact/issues"
+  },
+  "scripts": {
+    "check:versions": "node .scripts/check-versions.js",
+    "sync:versions": "node .scripts/sync-versions.js",
+    "w:build": "pnpm -r run build",
+    "w:pack": "pnpm -r run t:pack",
+    "w:typecheck": "pnpm -r run typecheck",
+    "w:lint": "pnpm -r run lint",
+    "aliasify": "pnpx tsx ./.scripts/aliasify-imports.ts",
+    "format": "pnpm aliasify && eslint --fix && prettier . --write"
+  },
+  "devDependencies": {
+    "@types/glob": "^9.0.0",
+    "@types/node": "^24.10.6",
+    "@typescript-eslint/eslint-plugin": "^8.52.0",
+    "@typescript-eslint/parser": "^8.52.0",
+    "esbuild": "^0.27.2",
+    "eslint": "^9.39.2",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "glob": "^13.0.0",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.26.0"
+}
