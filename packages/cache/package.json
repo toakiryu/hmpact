@@ -1,17 +1,17 @@
 {
-  "name": "@hmpact/path",
+  "name": "@hmpact/cache",
   "type": "module",
   "version": "0.0.1-beta.2",
   "description": "",
   "author": "toakiryu <toakiryu@gmail.com>",
   "license": "MIT",
   "keywords": [
-    "path"
+    "cache"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toakiryu/hmpact.git",
-    "directory": "packages/path"
+    "directory": "packages/cache"
   },
   "bugs": {
     "url": "https://github.com/toakiryu/hmpact/issues"
@@ -36,8 +36,14 @@
       "import": "./dist/index.mjs"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "@hmpact/fs": "workspace:^",
+    "@hmpact/path": "workspace:^",
+    "cacache": "^20.0.3",
+    "zod": "^4.3.5"
+  },
   "devDependencies": {
+    "@types/cacache": "^20.0.0",
     "@types/node": "^24.10.1",
     "esbuild": "^0.27.1",
     "eslint": "^9.39.1",

@@ -6,8 +6,7 @@
   "author": "toakiryu <toakiryu@gmail.com>",
   "license": "MIT",
   "keywords": [
-    "cli",
-    "tool"
+    "logger"
   ],
   "repository": {
     "type": "git",

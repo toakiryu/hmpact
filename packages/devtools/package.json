@@ -1,24 +1,26 @@
 {
-  "name": "@hmpact/path",
+  "name": "@hmpact/devtools",
   "type": "module",
   "version": "0.0.1-beta.2",
   "description": "",
   "author": "toakiryu <toakiryu@gmail.com>",
   "license": "MIT",
   "keywords": [
-    "path"
+    "development",
+    "tool"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toakiryu/hmpact.git",
-    "directory": "packages/path"
+    "directory": "packages/devtools"
   },
   "bugs": {
     "url": "https://github.com/toakiryu/hmpact/issues"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node ../../.scripts/build-esbuild.js",
+    "build": "pnpm build:info && node ../../.scripts/build-esbuild.js --entries=./src/index.ts,./src/features/build-info/index.ts",
+    "build:info": "node ../../.scripts/build-info.js",
     "typecheck": "tsc --noEmit",
     "t:pack": "pnpm pack",
     "prepack": "pnpm build",
@@ -34,9 +36,15 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs"
+    },
+    "./build-info": {
+      "types": "./dist/features/build-info/index.d.ts",
+      "import": "./dist/features/build-info/index.mjs"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "zod": "^4.3.5"
+  },
   "devDependencies": {
     "@types/node": "^24.10.1",
     "esbuild": "^0.27.1",

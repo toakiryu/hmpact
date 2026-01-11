@@ -11,9 +11,6 @@ import _helperSchemaFunction from "@/utils/helpers/schema";
 import {
   applyEdits,
   modify,
-  parse,
-  ParseError,
-  printParseErrorCode,
 } from "jsonc-parser";
 import { hfs } from "@hmpact/fs";
 
@@ -36,7 +33,7 @@ const __helperManifestFuncHasFile =
   async (): Promise<ManifestHelperFunction_hasFileResult> => {
     try {
       // カレントディレクトリを基準に確認
-      const cwd = _helperDirFunction.cwd();
+      const cwd = process.cwd();
       // マニフェストファイル名のリストをループして存在確認
       for (let i = 0; i < hmpactrc.manifestFile.name.length; i++) {
         const fileName = hmpactrc.manifestFile.name[i];

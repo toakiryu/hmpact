@@ -16,8 +16,6 @@ logger.info({
   cache: hpath.homedir.cache,
 });
 
-// 言語パックの初期化
-await helper.userConfig.get();
 
 // コマンドラインインターフェースの設定
 program.name("hmpact").description("").version(hmpactrc.version);

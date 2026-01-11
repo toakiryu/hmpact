@@ -37,6 +37,11 @@
       "cwd": "${workspaceFolder}/packages/cache"
     },
     {
+      "name": "/devtools",
+      "description": "Devtools package development terminal",
+      "cwd": "${workspaceFolder}/packages/devtools"
+    },
+    {
       "name": "/user-config",
       "description": "User config package development terminal",
       "cwd": "${workspaceFolder}/packages/user-config"

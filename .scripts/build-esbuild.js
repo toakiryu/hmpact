@@ -7,15 +7,16 @@ import { execSync } from "child_process";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-/**
- * esbuild を使用してパッケージをビルドする
- * @param {Object} options - ビルドオプション
- * @param {string} options.packageDir - パッケージディレクトリの絶対パス
- * @param {string[]} options.entries - エントリーポイント（packageDir からの相対パス）
- * @param {string} options.outDir - 出力ディレクトリ（packageDir からの相対パス）
- * @param {boolean} [options.minify=true] - ミニファイするかどうか
- * @param {boolean} [options.declaration=true] - 型定義を生成するかどうか
- */
+function parseArgs(argv) {
+  const args = {};
+  for (const arg of argv) {
+    if (!arg.startsWith("--")) continue;
+    const [key, val] = arg.replace(/^--/, "").split("=");
+    args[key] = val ?? true;
+  }
+  return args;
+}
+
 export async function buildPackage({
   packageDir,
   entries = ["./src/index.ts"],
@@ -23,22 +24,25 @@ export async function buildPackage({
   minify = true,
   declaration = true,
 }) {
-  const entryPoints = entries.map((entry) => {
-    // glob パターンの場合
-    if (entry.includes("*")) {
-      return globSync(entry, { cwd: packageDir, absolute: true });
-    }
-    // 単一ファイルの場合
-    return path.resolve(packageDir, entry);
-  }).flat();
+  const resolvedEntries = entries
+    .map((entry) =>
+      entry.includes("*")
+        ? globSync(entry, { cwd: packageDir, absolute: true })
+        : path.resolve(packageDir, entry)
+    )
+    .flat();
+
+  if (resolvedEntries.length === 0) {
+    console.error("No entry points resolved. Check --entries pattern.");
+    process.exit(1);
+  }
 
   console.log(`Building ${path.basename(packageDir)}...`);
-  console.log(`Entry points: ${entryPoints.join(", ")}`);
+  console.log(`Entry points: ${resolvedEntries.join(", ")}`);
 
   try {
-    // JavaScript のビルド
     await build({
-      entryPoints,
+      entryPoints: resolvedEntries,
       bundle: true,
       outdir: path.resolve(packageDir, outDir),
       outExtension: { ".js": ".mjs" },
@@ -47,10 +51,11 @@ export async function buildPackage({
       target: "node18",
       minify,
       sourcemap: true,
+      // src配下の相対フォルダ構造を維持して出力する
+      outbase: path.resolve(packageDir, "src"),
+      entryNames: "[dir]/[name]",
       external: [
-        // workspace パッケージ
         "@hmpact/*",
-        // 標準的な外部依存関係
         "chalk",
         "commander",
         "deepmerge",
@@ -65,18 +70,9 @@ export async function buildPackage({
       logLevel: "info",
     });
 
-    // 型定義の生成
     if (declaration) {
       console.log("Generating type definitions...");
-      try {
-        execSync("pnpm tsc --build", {
-          cwd: packageDir,
-          stdio: "inherit",
-        });
-      } catch (error) {
-        console.error("Failed to generate type definitions:", error.message);
-        throw error;
-      }
+      execSync("pnpm tsc --build", { cwd: packageDir, stdio: "inherit" });
     }
 
     console.log(`✓ Built ${path.basename(packageDir)} successfully`);
@@ -86,16 +82,34 @@ export async function buildPackage({
   }
 }
 
-// スクリプトとして直接実行された場合
-if (import.meta.url.startsWith('file:')) {
-  const modulePath = fileURLToPath(import.meta.url);
-  const scriptPath = process.argv[1];
-  
-  if (modulePath === scriptPath) {
-    const packageDir = process.cwd();
-    buildPackage({ packageDir }).catch((error) => {
+// スクリプトとして直接実行された場合（CLI引数対応）
+if (import.meta.url.startsWith("file:")) {
+  const args = parseArgs(process.argv.slice(2));
+  // デフォルトはカレントディレクトリ
+  const packageDir = args.packageDir
+    ? path.resolve(process.cwd(), args.packageDir)
+    : process.cwd();
+
+  // --entries="a,b,c" または --entries="./src/**/index.ts"
+  let entries = ["./src/index.ts"];
+  if (args.entries) {
+    entries = String(args.entries)
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+  } else if (args.auto) {
+    entries = ["./src/index.ts", "./src/**/index.ts"];
+  }
+
+  const outDir = args.outDir ? String(args.outDir) : "dist";
+  const minify = args.minify === undefined ? true : args.minify !== "false";
+  const declaration =
+    args.declaration === undefined ? true : args.declaration !== "false";
+
+  buildPackage({ packageDir, entries, outDir, minify, declaration }).catch(
+    (error) => {
       console.error(error);
       process.exit(1);
-    });
-  }
+    }
+  );
 }
