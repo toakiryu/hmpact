@@ -9,7 +9,7 @@ export const logger = {
     console.error(message, ...optionalParams);
   },
   debug: (message?: any, ...optionalParams: any[]) => {
-    if (process.env.hmpact_DEBUG === "true") {
+    if (process.env.HMPACT_DEBUG === "true") {
       console.debug(message, ...optionalParams);
     }
   },
