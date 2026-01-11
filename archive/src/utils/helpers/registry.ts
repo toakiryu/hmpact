@@ -1,4 +1,4 @@
-import logger from "@hmpact/logger";
+import { logger } from "@hmpact/logger";
 
 import { manifestSchema } from "@/schema/manifest";
 import { regsSchema } from "@/schema/regs";

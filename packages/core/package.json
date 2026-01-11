@@ -1,7 +1,7 @@
 {
   "name": "@hmpact/core",
   "type": "module",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "description": "",
   "author": "toakiryu <toakiryu@gmail.com>",
   "license": "MIT",
@@ -41,6 +41,8 @@
   },
   "dependencies": {
     "@hmpact/logger": "workspace:^",
+    "@hmpact/fs": "workspace:^",
+    "@hmpact/path": "workspace:^",
     "cacache": "^20.0.3",
     "chalk": "^5.6.2",
     "commander": "^14.0.2",

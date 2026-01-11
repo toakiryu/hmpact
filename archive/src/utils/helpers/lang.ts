@@ -1,4 +1,4 @@
-import logger from "@hmpact/logger";
+import { logger } from "@hmpact/logger";
 import fetch from "isomorphic-unfetch";
 import ora from "ora";
 

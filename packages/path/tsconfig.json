@@ -17,11 +17,6 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/features/*": ["./src/features/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/utils/*": ["./src/utils/*"],
-      "@/schema/*": ["./src/schema/*"],
-      "@/types/*": ["./src/types/*"],
       "~/*": ["./*"]
     }
   },

@@ -1,4 +1,4 @@
-import logger from "@hmpact/logger";
+import { logger } from "@hmpact/logger";
 import { Command } from "commander";
 
 import helper from "@/utils/helper";
@@ -7,7 +7,6 @@ import helper from "@/utils/helper";
  * summary: パッケージレジストリの管理コマンドを提供する
  * description: このモジュールは、パッケージレジストリの追加、削除、インポートを行うためのCLIコマンドを定義します。ユーザーはドメイン、ID、URLフォーマットルール、HTTPヘッダーを指定してレジストリを管理できます。
  */
-
 
 export function createRegistryCommand(): Command {
   const registryCmd = new Command("registry")
