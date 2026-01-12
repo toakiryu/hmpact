@@ -9,10 +9,7 @@ import { type ManifestSchemaType, manifestSchema } from "@/schema/manifest";
 import _helperDirFunction from "@/utils/helpers/dir";
 import _helperSchemaFunction from "@/utils/helpers/schema";
 
-import {
-  applyEdits,
-  modify,
-} from "jsonc-parser";
+import { applyEdits, modify } from "jsonc-parser";
 
 export interface ManifestHelperFunction_hasFileFile {
   path: string;
@@ -106,6 +103,11 @@ const __helperManifestFuncLoadFile = async (
         const result = await hfs.jsonc.read.byPath(path, {
           schema: manifestSchema.zod,
         });
+        if (result.status !== "success") {
+          throw new Error(
+            result.message ?? `Failed to load JSONC file: ${result.status}`,
+          );
+        }
         configData = result.data;
       }
     } catch (e) {

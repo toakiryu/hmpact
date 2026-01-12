@@ -44,11 +44,11 @@ try {
 import type { HmpactBuildInfoType } from "./types";
 
 const HmpactBuildInfo: HmpactBuildInfoType = {
-  version: ${JSON.stringify(pkg.version)},  
-  buildId: ${JSON.stringify(buildId)},  
-  commit: ${JSON.stringify(commit)},  
-  branch: ${JSON.stringify(branch)},  
-  timestamp: ${JSON.stringify(timestamp)},  
+  version: ${JSON.stringify(pkg.version)},
+  buildId: ${JSON.stringify(buildId)},
+  commit: ${JSON.stringify(commit)},
+  branch: ${JSON.stringify(branch)},
+  timestamp: ${JSON.stringify(timestamp)},
 };
 
 export default HmpactBuildInfo;

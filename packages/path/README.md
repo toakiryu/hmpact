@@ -33,8 +33,9 @@ console.log(hpath.homedir.hmpact);
 
 // キャッシュディレクトリ
 console.log(hpath.homedir.cache);
-// Linux/macOS: /home/username/.cache/hmpact/
-// Windows: C:\Users\username\.cache\hmpact\
+// Windows: C:\Users\username\AppData\Local\hmpact\cache
+// macOS: /Users/username/Library/Caches/hmpact
+// Linux: /home/username/.cache/hmpact
 ```
 
 ## API リファレンス
@@ -73,20 +74,28 @@ console.log(hmpactDir); // /home/username/.hmpact or C:\Users\username\.hmpact
 
 ### `hpath.homedir.cache`
 
-キャッシュディレクトリパスを返します。
+キャッシュディレクトリパスを返します。プラットフォームごとに最適な標準キャッシュディレクトリを使用します。
 
 ```typescript
 import { hpath } from "@hmpact/path";
 
 const cacheDir = hpath.homedir.cache;
-console.log(cacheDir); // /home/username/.cache/hmpact/ or C:\Users\username\.cache\hmpact\
+console.log(cacheDir);
+// Windows: C:\Users\username\AppData\Local\hmpact\cache
+// macOS: /Users/username/Library/Caches/hmpact
+// Linux: /home/username/.cache/hmpact
 ```
 
 **用途:** キャッシュファイルやテンポラリデータの保存
 
 **戻り値:**
-- **Linux/macOS**: `/home/username/.cache/hmpact/`
-- **Windows**: `C:\Users\username\.cache\hmpact\`
+- **Windows**: `%LOCALAPPDATA%\hmpact\cache` (例: `C:\Users\username\AppData\Local\hmpact\cache`)
+- **macOS**: `~/Library/Caches/hmpact` (例: `/Users/username/Library/Caches/hmpact`)
+- **Linux/Unix**: `$XDG_CACHE_HOME/hmpact` または `~/.cache/hmpact` (XDG Base Directory 仕様に準拠)
+
+**注意事項:**
+- 環境変数 `XDG_CACHE_HOME` (Linux/Unix) または `LOCALAPPDATA` (Windows) が設定されている場合、それらが優先されます
+- 各プラットフォームの標準規約に従った場所にキャッシュが保存されます
 
 ## 使用例
 
@@ -106,7 +115,9 @@ console.log(configPath);
 // /home/username/.hmpact/config.json or C:\Users\username\.hmpact\config.json
 
 console.log(cachePath);
-// /home/username/.cache/hmpact/data.cache or C:\Users\username\.cache\hmpact\data.cache
+// Windows: C:\Users\username\AppData\Local\hmpact\cache\data.cache
+// macOS: /Users/username/Library/Caches/hmpact/data.cache
+// Linux: /home/username/.cache/hmpact/data.cache
 ```
 
 ### 他の Hmpact パッケージとの組み合わせ
@@ -153,10 +164,32 @@ async function saveConfiguration(config: any) {
 
 ## ディレクトリ構造
 
-このパッケージで定義されるディレクトリの標準構造：
-
+**Windows:**
 ```
-~/ (ホームディレクトリ)
+C:\Users\username\
+├── .hmpact\              (Hmpact 設定ディレクトリ)
+│   ├── config.json
+│   └── ...
+└── AppData\Local\hmpact\ (キャッシュディレクトリ)
+    └── cache\
+        ├── *.cache
+        └── ...
+```
+
+**macOS:**
+```
+/Users/username/
+├── .hmpact/                 (Hmpact 設定ディレクトリ)
+│   ├── config.json
+│   └── ...
+└── Library/Caches/hmpact/   (キャッシュディレクトリ)
+    ├── *.cache
+    └── ...
+```
+
+**Linux/Unix:**
+```
+/home/username/ (ホームディレクトリ)
 ├── .hmpact/          (Hmpact 設定ディレクトリ)
 │   ├── config.json
 │   └── ...
