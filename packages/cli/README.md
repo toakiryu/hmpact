@@ -82,13 +82,13 @@ hmpact/
 
 ## スクリプト
 
-| スクリプト | 説明 |
-| --------- | ---- |
-| `pnpm demo` | CLI を実行 |
-| `pnpm test` | テストを実行（未実装） |
-| `pnpm typecheck` | TypeScript の型チェック |
-| `pnpm lint` | ESLint でコードを検査 |
-| `pnpm format` | Prettier でコードをフォーマット |
+| スクリプト       | 説明                            |
+| ---------------- | ------------------------------- |
+| `pnpm demo`      | CLI を実行                      |
+| `pnpm test`      | テストを実行（未実装）          |
+| `pnpm typecheck` | TypeScript の型チェック         |
+| `pnpm lint`      | ESLint でコードを検査           |
+| `pnpm format`    | Prettier でコードをフォーマット |
 
 ## 開発
 

@@ -28,7 +28,7 @@ export async function buildPackage({
     .map((entry) =>
       entry.includes("*")
         ? globSync(entry, { cwd: packageDir, absolute: true })
-        : path.resolve(packageDir, entry)
+        : path.resolve(packageDir, entry),
     )
     .flat();
 
@@ -111,6 +111,6 @@ if (isDirectRun) {
     (error) => {
       console.error(error);
       process.exit(1);
-    }
+    },
   );
 }

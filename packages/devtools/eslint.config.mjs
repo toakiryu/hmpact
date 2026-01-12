@@ -41,6 +41,7 @@ const eslintConfig = defineConfig([
       "import/newline-after-import": ["error", { count: 1 }],
       "import/no-relative-parent-imports": "off",
       "import/no-useless-path-segments": ["error", { commonjs: true }],
+      "@typescript-eslint/no-unused-vars": "warn",
     },
   },
 ]);

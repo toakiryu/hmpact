@@ -89,21 +89,21 @@ async function main() {
 
     console.error("\n⚠️  すべてのパッケージのバージョンを統一してください。");
     console.error(
-      "   Next.jsのように、関連パッケージは同じバージョンで管理されます。"
+      "   Next.jsのように、関連パッケージは同じバージョンで管理されます。",
     );
     process.exit(1);
   }
 
   const unifiedVersion = versionList[0];
   console.log(
-    `✅ すべてのパッケージのバージョンが統一されています: ${unifiedVersion}`
+    `✅ すべてのパッケージのバージョンが統一されています: ${unifiedVersion}`,
   );
 
   // GitHub Actions用の出力
   if (process.env.GITHUB_OUTPUT) {
     fs.appendFileSync(
       process.env.GITHUB_OUTPUT,
-      `unified_version=${unifiedVersion}\n`
+      `unified_version=${unifiedVersion}\n`,
     );
 
     // プレリリース情報の抽出
@@ -115,7 +115,7 @@ async function main() {
 
     fs.appendFileSync(
       process.env.GITHUB_OUTPUT,
-      `base_version=${baseVersion}\n`
+      `base_version=${baseVersion}\n`,
     );
     fs.appendFileSync(process.env.GITHUB_OUTPUT, `prerelease=${prerelease}\n`);
     fs.appendFileSync(process.env.GITHUB_OUTPUT, `publish_tag=${publishTag}\n`);

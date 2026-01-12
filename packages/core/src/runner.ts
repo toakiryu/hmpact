@@ -16,7 +16,6 @@ logger.info({
   cache: hpath.homedir.cache,
 });
 
-
 // コマンドラインインターフェースの設定
 program.name("hmpact").description("").version(hmpactrc.version);
 

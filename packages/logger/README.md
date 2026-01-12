@@ -168,7 +168,7 @@ import { logger } from "@hmpact/logger";
 function processData(data: any) {
   logger.debug("入力データ:", data);
 
-  const result = data.map(item => {
+  const result = data.map((item) => {
     logger.debug("処理中:", item);
     return transform(item);
   });

@@ -143,7 +143,7 @@ if (result.status === "success") {
 
 ```typescript
 interface HCachePutRequest {
-  key: string;        // キャッシュキー
+  key: string; // キャッシュキー
   data: string | Buffer; // 保存するデータ
 }
 ```
@@ -154,7 +154,7 @@ interface HCachePutRequest {
 type HCachePutResponse =
   | {
       status: "success";
-      row: string;  // 保存されたデータのハッシュ
+      row: string; // 保存されたデータのハッシュ
     }
   | {
       status: "error";
@@ -170,7 +170,7 @@ type HCachePutResponse =
 
 ```typescript
 interface HCacheGetRequest {
-  key: string;  // キャッシュキー
+  key: string; // キャッシュキー
 }
 ```
 
@@ -199,7 +199,7 @@ type HCacheGetResponse =
 
 ```typescript
 interface HCacheHasRequest {
-  key: string;  // キャッシュキー
+  key: string; // キャッシュキー
 }
 ```
 
@@ -230,7 +230,7 @@ type HCacheHasResponse =
 type HCacheLsResponse =
   | {
       status: "success";
-      row: ls.Cache;  // キャッシュオブジェクトマップ
+      row: ls.Cache; // キャッシュオブジェクトマップ
     }
   | {
       status: "error";

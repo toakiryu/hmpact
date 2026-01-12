@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      jsonc-parser:
-        specifier: ^3.3.1
-        version: 3.3.1
     devDependencies:
       '@types/glob':
         specifier: ^9.0.0
@@ -39,6 +35,12 @@ importers:
       glob:
         specifier: ^13.0.0
         version: 13.0.0
+      jsonc-parser:
+        specifier: ^3.3.1
+        version: 3.3.1
+      prettier:
+        specifier: ^3.7.4
+        version: 3.7.4
       typescript:
         specifier: ^5.9.3
         version: 5.9.3

@@ -52,6 +52,7 @@ console.log(homeDir); // /home/username or C:\Users\username
 ```
 
 **戻り値:**
+
 - **Linux/macOS**: `/home/username`
 - **Windows**: `C:\Users\username`
 
@@ -69,6 +70,7 @@ console.log(hmpactDir); // /home/username/.hmpact or C:\Users\username\.hmpact
 **用途:** Hmpact 関連の設定ファイルやプロジェクト情報の保存
 
 **戻り値:**
+
 - **Linux/macOS**: `/home/username/.hmpact`
 - **Windows**: `C:\Users\username\.hmpact`
 
@@ -89,11 +91,13 @@ console.log(cacheDir);
 **用途:** キャッシュファイルやテンポラリデータの保存
 
 **戻り値:**
+
 - **Windows**: `%LOCALAPPDATA%\hmpact\cache` (例: `C:\Users\username\AppData\Local\hmpact\cache`)
 - **macOS**: `~/Library/Caches/hmpact` (例: `/Users/username/Library/Caches/hmpact`)
 - **Linux/Unix**: `$XDG_CACHE_HOME/hmpact` または `~/.cache/hmpact` (XDG Base Directory 仕様に準拠)
 
 **注意事項:**
+
 - 環境変数 `XDG_CACHE_HOME` (Linux/Unix) または `LOCALAPPDATA` (Windows) が設定されている場合、それらが優先されます
 - 各プラットフォームの標準規約に従った場所にキャッシュが保存されます
 
@@ -129,7 +133,7 @@ import path from "path";
 
 // 設定ファイルを読み込み
 const result = await hfs.json.read.byPath(
-  path.join(hpath.homedir.hmpact, "config.json")
+  path.join(hpath.homedir.hmpact, "config.json"),
 );
 ```
 
@@ -139,7 +143,7 @@ import { hcache } from "@hmpact/cache";
 
 // キャッシュからデータを取得
 const result = await hcache.get({
-  key: "my-data"
+  key: "my-data",
 });
 ```
 
@@ -165,6 +169,7 @@ async function saveConfiguration(config: any) {
 ## ディレクトリ構造
 
 **Windows:**
+
 ```
 C:\Users\username\
 ├── .hmpact\              (Hmpact 設定ディレクトリ)
@@ -177,6 +182,7 @@ C:\Users\username\
 ```
 
 **macOS:**
+
 ```
 /Users/username/
 ├── .hmpact/                 (Hmpact 設定ディレクトリ)
@@ -188,6 +194,7 @@ C:\Users\username\
 ```
 
 **Linux/Unix:**
+
 ```
 /home/username/ (ホームディレクトリ)
 ├── .hmpact/          (Hmpact 設定ディレクトリ)

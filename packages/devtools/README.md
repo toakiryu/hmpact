@@ -23,8 +23,8 @@ pnpm add @hmpact/devtools
 ```typescript
 import HmpactBuildInfo from "@hmpact/devtools/build-info";
 
-console.log(HmpactBuildInfo.version);   // "0.0.1-beta.2"
-console.log(HmpactBuildInfo.buildId);   // "MK9GKVY6"
+console.log(HmpactBuildInfo.version); // "0.0.1-beta.2"
+console.log(HmpactBuildInfo.buildId); // "MK9GKVY6"
 console.log(HmpactBuildInfo.timestamp); // "2026-01-11T08:15:00.798Z"
 ```
 
@@ -38,22 +38,22 @@ console.log(HmpactBuildInfo.timestamp); // "2026-01-11T08:15:00.798Z"
 
 ```typescript
 type HmpactBuildInfoType = {
-  version: string;    // パッケージバージョン
-  buildId: string;    // ビルド ID
-  commit: string;     // コミットハッシュ
-  branch: string;     // ブランチ名
-  timestamp: string;  // ビルドタイムスタンプ (ISO 8601)
+  version: string; // パッケージバージョン
+  buildId: string; // ビルド ID
+  commit: string; // コミットハッシュ
+  branch: string; // ブランチ名
+  timestamp: string; // ビルドタイムスタンプ (ISO 8601)
 };
 ```
 
 **プロパティ:**
 
-| プロパティ | 説明 | 例 |
-| --------- | ---- | --- |
-| `version` | パッケージのバージョン | `"0.0.1-beta.2"` |
-| `buildId` | ビルドを識別するためのユニークな ID | `"MK9GKVY6"` |
-| `commit` | Git コミットハッシュ（オプション） | `"abc1234"` |
-| `branch` | Git ブランチ名（オプション） | `"main"` |
+| プロパティ  | 説明                                   | 例                           |
+| ----------- | -------------------------------------- | ---------------------------- |
+| `version`   | パッケージのバージョン                 | `"0.0.1-beta.2"`             |
+| `buildId`   | ビルドを識別するためのユニークな ID    | `"MK9GKVY6"`                 |
+| `commit`    | Git コミットハッシュ（オプション）     | `"abc1234"`                  |
+| `branch`    | Git ブランチ名（オプション）           | `"main"`                     |
 | `timestamp` | ビルドが実行された時刻（ISO 8601形式） | `"2026-01-11T08:15:00.798Z"` |
 
 ### `HmpactBuildInfoSchema`
@@ -61,7 +61,10 @@ type HmpactBuildInfoType = {
 ビルド情報の Zod スキーマ。検証に使用できます。
 
 ```typescript
-import { HmpactBuildInfoSchema, type HmpactBuildInfoType } from "@hmpact/devtools/build-info";
+import {
+  HmpactBuildInfoSchema,
+  type HmpactBuildInfoType,
+} from "@hmpact/devtools/build-info";
 import z from "zod";
 
 // スキーマを使用して検証
@@ -112,7 +115,9 @@ if (HmpactBuildInfo.branch) {
 ### ビルド情報の検証と使用
 
 ```typescript
-import HmpactBuildInfo, { HmpactBuildInfoSchema } from "@hmpact/devtools/build-info";
+import HmpactBuildInfo, {
+  HmpactBuildInfoSchema,
+} from "@hmpact/devtools/build-info";
 
 async function initializeApp() {
   // ビルド情報の検証
@@ -124,7 +129,7 @@ async function initializeApp() {
     const requiredVersion = "0.0.1-beta.2";
     if (buildInfo.version !== requiredVersion) {
       console.warn(
-        `警告: 想定されるバージョン ${requiredVersion} と異なります`
+        `警告: 想定されるバージョン ${requiredVersion} と異なります`,
       );
     }
 
@@ -213,7 +218,10 @@ import * as devtools from "@hmpact/devtools";
 
 ```typescript
 import HmpactBuildInfo from "@hmpact/devtools/build-info";
-import { HmpactBuildInfoSchema, type HmpactBuildInfoType } from "@hmpact/devtools/build-info";
+import {
+  HmpactBuildInfoSchema,
+  type HmpactBuildInfoType,
+} from "@hmpact/devtools/build-info";
 ```
 
 ## 依存関係

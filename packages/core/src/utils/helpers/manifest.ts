@@ -1,15 +1,13 @@
 import { hfs } from "@hmpact/fs";
 import deepmerge from "deepmerge";
 import { existsSync } from "fs";
-import { readFile, writeFile } from "fs/promises";
+import { writeFile } from "fs/promises";
+import { applyEdits, modify } from "jsonc-parser";
 import { extname } from "path";
 
 import { hmpactrc } from "~/src/config";
 import { type ManifestSchemaType, manifestSchema } from "@/schema/manifest";
-import _helperDirFunction from "@/utils/helpers/dir";
 import _helperSchemaFunction from "@/utils/helpers/schema";
-
-import { applyEdits, modify } from "jsonc-parser";
 
 export interface ManifestHelperFunction_hasFileFile {
   path: string;

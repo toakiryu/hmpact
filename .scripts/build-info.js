@@ -13,7 +13,7 @@ const outputDir = path.join(
   "devtools",
   "src",
   "features",
-  "build-info"
+  "build-info",
 );
 
 try {
@@ -59,7 +59,7 @@ export default HmpactBuildInfo;
   console.error(
     `[build-info] Error: ${
       error instanceof Error ? error.message : String(error)
-    }`
+    }`,
   );
   process.exit(1);
 }

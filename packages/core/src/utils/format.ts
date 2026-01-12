@@ -1,4 +1,3 @@
-
 /**
  * フォーマット文字列内の $` を `&` に変換
  * @param format フォーマット文字列 (例: "//api.motion.dev/registry?package={pkg}$version={ver}")

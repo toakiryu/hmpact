@@ -43,10 +43,10 @@ jobs:
         name: Compare with previous version
         run: |
           set -e
-          
+
           # Get current unified version
           CUR="${{ steps.check_unified.outputs.unified_version }}"
-          
+
           if [ -z "$CUR" ]; then
             echo "❌ Failed to detect unified version"
             exit 1
@@ -73,7 +73,7 @@ jobs:
           fi
 
           echo "changed=$CHANGED" >> $GITHUB_OUTPUT
-          
+
           echo "📊 Version comparison:"
           echo "   Current: $CUR"
           echo "   Previous: $PREV"

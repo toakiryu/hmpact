@@ -72,9 +72,7 @@ function classifyImport(
 
   // パスエイリアス
   if (paths) {
-    const aliasKeys = Object.keys(paths).map((key) =>
-      key.replace(/\/\*$/, ""),
-    );
+    const aliasKeys = Object.keys(paths).map((key) => key.replace(/\/\*$/, ""));
     for (const alias of aliasKeys) {
       if (source.startsWith(alias)) {
         // エイリアスの優先度を決定（記号順）
@@ -279,7 +277,10 @@ function organizeImports(
   }
 
   // originalLinesから末尾の空行を削除
-  while (originalLines.length > 0 && originalLines[originalLines.length - 1].trim() === "") {
+  while (
+    originalLines.length > 0 &&
+    originalLines[originalLines.length - 1].trim() === ""
+  ) {
     originalLines.pop();
   }
 
@@ -289,7 +290,7 @@ function organizeImports(
   // 元のインポートと同じ場合はスキップ
   const originalImportsStr = originalLines.join("\n");
   const newImportsStr = sortedImports.join("\n");
-  
+
   const debug2 = process.env.DEBUG_ALIASIFY === "1";
   if (debug2) {
     console.log(`\n=== ${path.relative(process.cwd(), filePath)} ===`);
@@ -299,7 +300,7 @@ function organizeImports(
     console.log(newImportsStr);
     console.log(`\nEqual: ${originalImportsStr === newImportsStr}`);
   }
-  
+
   if (originalImportsStr === newImportsStr) {
     return;
   }

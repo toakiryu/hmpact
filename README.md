@@ -61,6 +61,7 @@ hmpact はこの隙間を埋めるミドルレイヤーとして設計されま�
 将来的なアップデートに向けて、CLI および仕様の土台を公開しています。
 
 ---
+
 ## 🏗️ Development
 
 ### モノレポ構成
@@ -86,6 +87,7 @@ pnpm sync:versions 1.0.0-beta.1
 詳細は [バージョン管理ガイド](.github/docs/VERSION_MANAGEMENT.md) を参照してください。
 
 ---
+
 ## 📘 Roadmap (Draft)
 
 1. **hmpact.json（仮）仕様策定**

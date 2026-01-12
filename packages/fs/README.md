@@ -111,12 +111,9 @@ function isDatabaseConfig(data: unknown): data is DatabaseConfig {
   );
 }
 
-const result = await hfs.json.read.byPath<DatabaseConfig>(
-  "./db-config.json",
-  {
-    schema: isDatabaseConfig,
-  },
-);
+const result = await hfs.json.read.byPath<DatabaseConfig>("./db-config.json", {
+  schema: isDatabaseConfig,
+});
 
 if (result.status === "success") {
   console.log("検証済みデータベース設定:", result.data);
@@ -137,12 +134,9 @@ const projectConfigSchema = z.object({
 
 type ProjectConfig = z.infer<typeof projectConfigSchema>;
 
-const result = await hfs.jsonc.read.byPath<ProjectConfig>(
-  "./tsconfig.jsonc",
-  {
-    schema: projectConfigSchema,
-  },
-);
+const result = await hfs.jsonc.read.byPath<ProjectConfig>("./tsconfig.jsonc", {
+  schema: projectConfigSchema,
+});
 
 if (result.status === "success") {
   console.log("プロジェクト設定:", result.data);
@@ -177,12 +171,12 @@ type Response<T = unknown> = {
 
 **ステータスの説明:**
 
-| ステータス         | 説明                                   |
-| ------------------ | -------------------------------------- |
-| `success`          | ファイルが正常に読み込まれました       |
-| `not_found`        | ファイルが見つからないか読み込み失敗   |
-| `error`            | エラーが発生しました                   |
-| `validation_failed` | スキーマ検証に失敗しました             |
+| ステータス          | 説明                                 |
+| ------------------- | ------------------------------------ |
+| `success`           | ファイルが正常に読み込まれました     |
+| `not_found`         | ファイルが見つからないか読み込み失敗 |
+| `error`             | エラーが発生しました                 |
+| `validation_failed` | スキーマ検証に失敗しました           |
 
 ### `hfs.jsonc.read.byPath(path, options?)`
 
@@ -224,8 +218,8 @@ JSONC（JSON with Comments）は、コメント機能を含む JSON の拡張形
   "version": "1.0.0",
   "scripts": {
     "build": "tsc", // ビルド用スクリプト
-    "test": "jest"
-  }
+    "test": "jest",
+  },
 }
 ```
 
