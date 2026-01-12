@@ -3,10 +3,10 @@ import type { HmpactBuildInfoType } from "./types";
 
 const HmpactBuildInfo: HmpactBuildInfoType = {
   version: "0.0.1-beta.2",
-  buildId: "MK9GKVY6",
+  buildId: "MKAOLX3B",
   commit: "",
   branch: "",
-  timestamp: "2026-01-11T08:15:00.798Z",
+  timestamp: "2026-01-12T04:47:32.039Z",
 };
 
 export default HmpactBuildInfo;
