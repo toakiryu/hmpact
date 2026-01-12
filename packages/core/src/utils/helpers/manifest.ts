@@ -1,3 +1,4 @@
+import { hfs } from "@hmpact/fs";
 import deepmerge from "deepmerge";
 import { existsSync } from "fs";
 import { readFile, writeFile } from "fs/promises";
@@ -12,7 +13,6 @@ import {
   applyEdits,
   modify,
 } from "jsonc-parser";
-import { hfs } from "@hmpact/fs";
 
 export interface ManifestHelperFunction_hasFileFile {
   path: string;

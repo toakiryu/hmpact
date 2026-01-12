@@ -15,10 +15,6 @@
     "outDir": "./dist",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./*"]
-    }
   },
   "include": ["src/**/*"],
 }

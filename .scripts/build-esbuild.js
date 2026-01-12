@@ -83,7 +83,8 @@ export async function buildPackage({
 }
 
 // スクリプトとして直接実行された場合（CLI引数対応）
-if (import.meta.url.startsWith("file:")) {
+const isDirectRun = process.argv[1] === fileURLToPath(import.meta.url);
+if (isDirectRun) {
   const args = parseArgs(process.argv.slice(2));
   // デフォルトはカレントディレクトリ
   const packageDir = args.packageDir

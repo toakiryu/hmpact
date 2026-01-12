@@ -1,5 +1,5 @@
-import { Command } from "commander";
 import { HmpactBuildInfo } from "@hmpact/devtools/build-info";
+import { Command } from "commander";
 
 export function registerBuildInfoCommand(): Command {
   const buildInfoCmd = new Command("build-info").description(

@@ -74,8 +74,15 @@ const __helperReadJsoncByPathFunc = async <T = unknown>(
       data: parsed as T,
     };
   } catch (e) {
+    // Distinguish file-not-found from other errors
+    if (e instanceof Error && "code" in e && e.code === "ENOENT") {
+      return {
+        status: "not_found",
+        error: e,
+      };
+    }
     return {
-      status: "not_found",
+      status: "error",
       error: e,
     };
   }

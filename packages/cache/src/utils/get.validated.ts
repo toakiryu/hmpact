@@ -1,7 +1,6 @@
-import { hpath } from "@hmpact/path";
-import { get, GetCacheObject } from "cacache";
 import { ZodSchema } from "zod";
-import { cacheGet } from "../base/get";
+
+import { cacheGet } from "@/base/get";
 
 type ValidatorFunction<T> = (data: unknown) => data is T;
 

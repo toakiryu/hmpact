@@ -114,6 +114,7 @@ console.log(cachePath);
 ```typescript
 import { hpath } from "@hmpact/path";
 import { hfs } from "@hmpact/fs";
+import path from "path";
 
 // 設定ファイルを読み込み
 const result = await hfs.json.read.byPath(

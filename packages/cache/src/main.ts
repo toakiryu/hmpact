@@ -1,9 +1,9 @@
-import { cacheLs } from "./base/ls";
-import { cacheClear } from "./base/clear";
-import { cacheHas } from "./base/has";
-import { cacheGet } from "./base/get";
-import { cachePut } from "./base/put";
-import { cacheGetValidated } from "./utils/get.validated";
+import { cacheClear } from "@/base/clear";
+import { cacheGet } from "@/base/get";
+import { cacheHas } from "@/base/has";
+import { cacheLs } from "@/base/ls";
+import { cachePut } from "@/base/put";
+import { cacheGetValidated } from "@/utils/get.validated";
 
 export const hcache = {
   // base functions

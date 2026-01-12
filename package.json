@@ -38,5 +38,8 @@
     "glob": "^13.0.0",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.28.0"
+  "packageManager": "pnpm@10.28.0",
+  "dependencies": {
+    "jsonc-parser": "^3.3.1"
+  }
 }

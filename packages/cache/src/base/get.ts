@@ -1,6 +1,7 @@
 import { hpath } from "@hmpact/path";
 import { get, GetCacheObject } from "cacache";
-import { cacheHas } from "./has";
+
+import { cacheHas } from "@/base/has";
 
 export interface HCacheGetRequest {
   key: string;
@@ -28,6 +29,13 @@ export const cacheGet = async (
     if (has.status === "not_found") {
       return {
         status: "not_found",
+      };
+    }
+
+    if (has.status === "error") {
+      return {
+        status: "error",
+        error: has.error,
       };
     }
 

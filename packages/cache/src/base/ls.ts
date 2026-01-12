@@ -1,7 +1,7 @@
-import { ls } from "cacache";
 import { hpath } from "@hmpact/path";
+import { ls } from "cacache";
 
-export type HCacheLsResuponse =
+export type HCacheLsResponse =
   | {
       status: "success";
       row: ls.Cache;
@@ -11,7 +11,7 @@ export type HCacheLsResuponse =
       error: unknown;
     };
 
-export const cacheLs = async (): Promise<HCacheLsResuponse> => {
+export const cacheLs = async (): Promise<HCacheLsResponse> => {
   try {
     const result = await ls(hpath.homedir.cache);
     return {

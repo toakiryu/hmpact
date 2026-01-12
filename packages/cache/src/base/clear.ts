@@ -1,9 +1,14 @@
 import { hpath } from "@hmpact/path";
 import { rm } from "cacache";
 
-export type HCacheClearResponse = {
-  status: "success" | "error";
-};
+export type HCacheClearResponse =
+  | {
+      status: "success";
+    }
+  | {
+      status: "error";
+      error: unknown;
+    };
 
 export const cacheClear = async (): Promise<HCacheClearResponse> => {
   try {
@@ -14,6 +19,7 @@ export const cacheClear = async (): Promise<HCacheClearResponse> => {
   } catch (error) {
     return {
       status: "error",
+      error,
     };
   }
 };

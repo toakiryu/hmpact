@@ -60,8 +60,19 @@ const __helperReadJsonByPath = async <T = unknown>(
       data: parsed as T,
     };
   } catch (e) {
+    // Distinguish file-not-found from other errors
+    if (e instanceof Error && "code" in e && e.code === "ENOENT") {
+      return {
+        status: "not_found",
+        error: e,
+      };
+    }
     return {
-      status: "not_found",
+      status: "error",
+      message:
+        e instanceof SyntaxError
+          ? "Invalid JSON format"
+          : "Failed to read file",
       error: e,
     };
   }

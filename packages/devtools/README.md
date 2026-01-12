@@ -204,7 +204,7 @@ pnpm build
 ### メインエントリポイント
 
 ```typescript
-import * from "@hmpact/devtools";
+import * as devtools from "@hmpact/devtools";
 ```
 
 現在、メインエントリポイントは空です。

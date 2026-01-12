@@ -227,14 +227,14 @@ type HCacheHasResponse =
 **戻り値:**
 
 ```typescript
-type HCacheLsResuponse =
+type HCacheLsResponse =
   | {
       status: "success";
       row: ls.Cache;  // キャッシュオブジェクトマップ
     }
   | {
       status: "error";
-      error: Error;
+      error: unknown;
     };
 ```
 
