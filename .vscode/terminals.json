@@ -1,5 +1,6 @@
 {
   "autorun": false,
+  "autokill": true,
   "terminals": [
     {
       "name": "Root",
@@ -11,14 +12,49 @@
       "cwd": "${workspaceFolder}/packages/cli"
     },
     {
-      "name": "@hmpact/core",
+      "name": "/core",
       "description": "Core package development terminal",
       "cwd": "${workspaceFolder}/packages/core"
     },
     {
-      "name": "@hmpact/logger",
+      "name": "/logger",
       "description": "Logger package development terminal",
       "cwd": "${workspaceFolder}/packages/logger"
+    },
+    {
+      "name": "/fs",
+      "description": "File system package development terminal",
+      "cwd": "${workspaceFolder}/packages/fs"
+    },
+    {
+      "name": "/path",
+      "description": "Path package development terminal",
+      "cwd": "${workspaceFolder}/packages/path"
+    },
+    {
+      "name": "/cache",
+      "description": "Cache package development terminal",
+      "cwd": "${workspaceFolder}/packages/cache"
+    },
+    {
+      "name": "/devtools",
+      "description": "Devtools package development terminal",
+      "cwd": "${workspaceFolder}/packages/devtools"
+    },
+    {
+      "name": "/user-config",
+      "description": "User config package development terminal",
+      "cwd": "${workspaceFolder}/packages/user-config"
+    },
+    {
+      "name": "/translator",
+      "description": "Translator package development terminal",
+      "cwd": "${workspaceFolder}/packages/translator"
+    },
+    {
+      "name": "/registrar",
+      "description": "Registrar package development terminal",
+      "cwd": "${workspaceFolder}/packages/registrar"
     }
   ]
 }

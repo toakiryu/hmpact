@@ -75,7 +75,7 @@ async function main() {
 
       if (!oldVersion) {
         console.error(
-          `⚠️  ${pkgName}: バージョンが定義されていません（スキップ）`
+          `⚠️  ${pkgName}: バージョンが定義されていません（スキップ）`,
         );
         continue;
       }
@@ -92,7 +92,7 @@ async function main() {
       fs.writeFileSync(
         pkgPath,
         JSON.stringify(pkgJson, null, 2) + "\n",
-        "utf-8"
+        "utf-8",
       );
 
       console.log(`   ✅ ${pkgName}: ${oldVersion} → ${newVersion}`);
@@ -109,13 +109,13 @@ async function main() {
     console.log("ℹ️  更新されたパッケージはありません");
   } else {
     console.log(
-      `✨ ${updatedCount}個のパッケージを ${newVersion} に更新しました`
+      `✨ ${updatedCount}個のパッケージを ${newVersion} に更新しました`,
     );
     console.log("");
     console.log("📝 次のステップ:");
     console.log("   1. pnpm check:versions でバージョンが統一されているか確認");
     console.log(
-      `   2. 変更をコミット: git add . && git commit -m "chore: bump version to ${newVersion}"`
+      `   2. 変更をコミット: git add . && git commit -m "chore: bump version to ${newVersion}"`,
     );
     console.log(`   3. タグを作成: git tag v${newVersion}`);
     console.log("   4. プッシュ: git push && git push --tags");

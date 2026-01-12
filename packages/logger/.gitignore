@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/test,node,git
-# Edit at https://www.toptal.com/developers/gitignore?templates=test,node,git
+# Created by https://www.toptal.com/developers/gitignore/api/windows,git,node
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,git,node
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:
@@ -156,86 +156,30 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
-### Test ###
-### Ignore all files that could be used to test your code and
-### you wouldn't want to push
+### Windows ###
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
 
-# Reference https://en.wikipedia.org/wiki/Metasyntactic_variable
+# Dump file
+*.stackdump
 
-# Most common
-*foo
-*bar
-*fubar
-*foobar
-*baz
+# Folder config file
+[Dd]esktop.ini
 
-# Less common
-*qux
-*quux
-*bongo
-*bazola
-*ztesch
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
-# UK, Australia
-*wibble
-*wobble
-*wubble
-*flob
-*blep
-*blah
-*boop
-*beep
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
 
-# Japanese
-*hoge
-*piyo
-*fuga
-*hogera
-*hogehoge
+# Windows shortcuts
+*.lnk
 
-# Portugal, Spain
-*fulano
-*sicrano
-*beltrano
-*mengano
-*perengano
-*zutano
-
-# France, Italy, the Netherlands
-*toto
-*titi
-*tata
-*tutu
-*pipppo
-*pluto
-*paperino
-*aap
-*noot
-*mies
-
-# Other names that would make sense
-*tests
-*testsdir
-*testsfile
-*testsfiles
-*test
-*testdir
-*testfile
-*testfiles
-*testing
-*testingdir
-*testingfile
-*testingfiles
-*temp
-*tempdir
-*tempfile
-*tempfiles
-*tmp
-*tmpdir
-*tmpfile
-*tmpfiles
-*lol
-
-# End of https://www.toptal.com/developers/gitignore/api/test,node,git
-
-build-info.json
+# End of https://www.toptal.com/developers/gitignore/api/windows,git,node

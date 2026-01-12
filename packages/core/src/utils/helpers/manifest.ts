@@ -1,21 +1,13 @@
+import { hfs } from "@hmpact/fs";
 import deepmerge from "deepmerge";
 import { existsSync } from "fs";
-import { readFile, writeFile } from "fs/promises";
+import { writeFile } from "fs/promises";
+import { applyEdits, modify } from "jsonc-parser";
 import { extname } from "path";
 
 import { hmpactrc } from "~/src/config";
 import { type ManifestSchemaType, manifestSchema } from "@/schema/manifest";
-import _helperDirFunction from "@/utils/helpers/dir";
-import _helperJsoncFunction from "@/utils/helpers/jsonc";
 import _helperSchemaFunction from "@/utils/helpers/schema";
-
-import {
-  applyEdits,
-  modify,
-  parse,
-  ParseError,
-  printParseErrorCode,
-} from "jsonc-parser";
 
 export interface ManifestHelperFunction_hasFileFile {
   path: string;
@@ -36,7 +28,7 @@ const __helperManifestFuncHasFile =
   async (): Promise<ManifestHelperFunction_hasFileResult> => {
     try {
       // カレントディレクトリを基準に確認
-      const cwd = _helperDirFunction.cwd();
+      const cwd = process.cwd();
       // マニフェストファイル名のリストをループして存在確認
       for (let i = 0; i < hmpactrc.manifestFile.name.length; i++) {
         const fileName = hmpactrc.manifestFile.name[i];
@@ -106,9 +98,14 @@ const __helperManifestFuncLoadFile = async (
       }
       // JSONファイルの場合
       if (ext === ".jsonc") {
-        const result = await _helperJsoncFunction.getJsoncByPath(path, {
+        const result = await hfs.jsonc.read.byPath(path, {
           schema: manifestSchema.zod,
         });
+        if (result.status !== "success") {
+          throw new Error(
+            result.message ?? `Failed to load JSONC file: ${result.status}`,
+          );
+        }
         configData = result.data;
       }
     } catch (e) {

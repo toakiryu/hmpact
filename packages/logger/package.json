@@ -1,13 +1,12 @@
 {
   "name": "@hmpact/logger",
   "type": "module",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "description": "",
   "author": "toakiryu <toakiryu@gmail.com>",
   "license": "MIT",
   "keywords": [
-    "cli",
-    "tool"
+    "logger"
   ],
   "repository": {
     "type": "git",

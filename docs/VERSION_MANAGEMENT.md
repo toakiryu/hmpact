@@ -17,6 +17,7 @@ pnpm check:versions
 ```
 
 成功時の出力例：
+
 ```
 📦 3個のパッケージを検出しました
 
@@ -46,6 +47,7 @@ pnpm sync:versions 1.0.0-beta.1
 各パッケージの `package.json` を手動で編集することもできますが、**すべてのパッケージで同じバージョンにする必要があります**。
 
 更新後は必ず確認：
+
 ```bash
 pnpm check:versions
 ```
@@ -134,6 +136,7 @@ package.jsonが変更されたPRでは、自動的にバージョン統一性が
 ```
 
 **解決方法：**
+
 ```bash
 # すべてのパッケージを統一バージョンに更新
 pnpm sync:versions 0.0.3-beta.15
