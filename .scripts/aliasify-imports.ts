@@ -170,19 +170,19 @@ function convertAliasToRelative(
     if (importPath.startsWith(alias)) {
       // エイリアス部分を削除して残りのパスを取得
       const restPath = importPath.substring(alias.length + 1); // +1 は "/" の分
-      
+
       // エイリアスターゲットのパスを解決
       const aliasDir = path.resolve(baseDir, aliasTarget);
       const targetPath = path.join(aliasDir, restPath);
-      
+
       // ファイルから見た相対パスを計算
       let relativePath = path.relative(fileDir, targetPath).replace(/\\/g, "/");
-      
+
       // 同じディレクトリまたは上位ディレクトリへの参照でない場合は ./ を追加
       if (!relativePath.startsWith("..")) {
         relativePath = "./" + relativePath;
       }
-      
+
       return importLine.replace(
         /from\s+["']([^"']+)["']/,
         `from "${relativePath}"`,
@@ -316,25 +316,15 @@ function organizeImports(
           trimmed.match(/import\s+["'][^"']+["']/)))
     ) {
       let convertedLine = line;
-      
+
       // export * from の場合はエイリアスを相対パスに変換
       if (trimmed.startsWith("export *")) {
-        convertedLine = convertAliasToRelative(
-          line,
-          filePath,
-          paths,
-          baseUrl,
-        );
+        convertedLine = convertAliasToRelative(line, filePath, paths, baseUrl);
       } else {
         // 通常のimportの場合は相対パスをエイリアスに変換
-        convertedLine = convertRelativeToAlias(
-          line,
-          filePath,
-          paths,
-          baseUrl,
-        );
+        convertedLine = convertRelativeToAlias(line, filePath, paths, baseUrl);
       }
-      
+
       originalLines.push(convertedLine);
       imports.push(classifyImport(convertedLine, paths));
     } else if (trimmed === "") {
