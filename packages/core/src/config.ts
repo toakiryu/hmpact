@@ -1,12 +1,10 @@
-import type { hmpactrcType } from "@/types/self";
-import helper from "@/utils/helper";
+import { HmpactBuildInfo } from "@hmpact/devtools/build-info";
 
-// `package.json`を読み込む
-const pkgJson = await helper.self.pkg.load();
+import type { hmpactrcType } from "@/types/self";
 
 export const hmpactrc: hmpactrcType = {
-  name: pkgJson.name,
-  version: pkgJson.version || "0.0.0",
+  name: "hmpact",
+  version: HmpactBuildInfo.version,
   manifestFile: {
     name: ["hmpact.jsonc"],
   },

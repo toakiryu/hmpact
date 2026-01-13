@@ -51,7 +51,7 @@ const HmpactBuildInfo: HmpactBuildInfoType = {
   timestamp: ${JSON.stringify(timestamp)},
 };
 
-export default HmpactBuildInfo;
+export { HmpactBuildInfo };
 `;
   fs.writeFileSync(outPath, content, "utf8");
   console.log(`[build-info] wrote ${outPath}`);

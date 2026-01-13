@@ -133,6 +133,67 @@ function sortImports(imports: ImportStatement[]): string[] {
 }
 
 /**
+ * エイリアスパスを相対パスに変換する
+ */
+function convertAliasToRelative(
+  importLine: string,
+  filePath: string,
+  paths?: Record<string, string[]>,
+  baseUrl?: string,
+): string {
+  if (!paths || !baseUrl) {
+    return importLine;
+  }
+
+  const match = importLine.match(/from\s+["']([^"']+)["']/);
+  if (!match) {
+    return importLine;
+  }
+
+  const importPath = match[1];
+
+  // 既に相対パスの場合はスキップ
+  if (importPath.startsWith(".")) {
+    return importLine;
+  }
+
+  // パッケージのルートディレクトリ（tsconfigがある場所）
+  const packageRoot = filePath.replace(/[\\/]src[\\/].*$/, "");
+  const baseDir = path.resolve(packageRoot, baseUrl);
+  const fileDir = path.dirname(filePath);
+
+  // エイリアスに一致するかチェック
+  for (const [aliasPattern, aliasPaths] of Object.entries(paths)) {
+    const alias = aliasPattern.replace(/\/\*$/, "");
+    const aliasTarget = aliasPaths[0].replace(/\/\*$/, "");
+
+    if (importPath.startsWith(alias)) {
+      // エイリアス部分を削除して残りのパスを取得
+      const restPath = importPath.substring(alias.length + 1); // +1 は "/" の分
+      
+      // エイリアスターゲットのパスを解決
+      const aliasDir = path.resolve(baseDir, aliasTarget);
+      const targetPath = path.join(aliasDir, restPath);
+      
+      // ファイルから見た相対パスを計算
+      let relativePath = path.relative(fileDir, targetPath).replace(/\\/g, "/");
+      
+      // 同じディレクトリまたは上位ディレクトリへの参照でない場合は ./ を追加
+      if (!relativePath.startsWith("..")) {
+        relativePath = "./" + relativePath;
+      }
+      
+      return importLine.replace(
+        /from\s+["']([^"']+)["']/,
+        `from "${relativePath}"`,
+      );
+    }
+  }
+
+  return importLine;
+}
+
+/**
  * 相対パスをエイリアスに変換する
  */
 function convertRelativeToAlias(
@@ -154,6 +215,12 @@ function convertRelativeToAlias(
 
   // 相対パスでない場合はスキップ
   if (!importPath.startsWith(".")) {
+    return importLine;
+  }
+
+  // export * from の場合はエイリアスパスへの変換をスキップ
+  // (ビルドシステムが正しく解決できない場合があるため)
+  if (importLine.trim().startsWith("export *")) {
     return importLine;
   }
 
@@ -248,13 +315,26 @@ function organizeImports(
         (trimmed.startsWith("import ") &&
           trimmed.match(/import\s+["'][^"']+["']/)))
     ) {
-      // 相対パスをエイリアスに変換
-      const convertedLine = convertRelativeToAlias(
-        line,
-        filePath,
-        paths,
-        baseUrl,
-      );
+      let convertedLine = line;
+      
+      // export * from の場合はエイリアスを相対パスに変換
+      if (trimmed.startsWith("export *")) {
+        convertedLine = convertAliasToRelative(
+          line,
+          filePath,
+          paths,
+          baseUrl,
+        );
+      } else {
+        // 通常のimportの場合は相対パスをエイリアスに変換
+        convertedLine = convertRelativeToAlias(
+          line,
+          filePath,
+          paths,
+          baseUrl,
+        );
+      }
+      
       originalLines.push(convertedLine);
       imports.push(classifyImport(convertedLine, paths));
     } else if (trimmed === "") {
