@@ -1,8 +1,8 @@
 import { readFile } from "fs/promises";
-import { parse, ParseError, printParseErrorCode } from "jsonc-parser";
-import { ZodSchema } from "zod";
-import { __helperFileParseJsonc } from "./jsonc";
 import path from "path";
+import { ZodSchema } from "zod";
+
+import { __helperFileParseJsonc } from "@/utils/readFile/jsonc";
 
 type ValidatorFunction<T> = (data: unknown) => data is T;
 
@@ -19,7 +19,7 @@ export type __helperReadFileFuncResponse<T = unknown> = {
   error?: unknown;
 };
 
-const __helperReadFileByPathFunc = async <T = unknown>(
+const _helperReadFileFunction = async <T = unknown>(
   _path: string,
   options?: FuncOptions<T>,
 ): Promise<__helperReadFileFuncResponse<T>> => {
@@ -93,7 +93,5 @@ const __helperReadFileByPathFunc = async <T = unknown>(
     };
   }
 };
-
-const _helperReadFileFunction = {};
 
 export default _helperReadFileFunction;

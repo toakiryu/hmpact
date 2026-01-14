@@ -16,15 +16,15 @@ const eslintConfig = defineConfig([
     ignores: ["eslint.config.mjs"],
   },
   {
-    files: ["**/*.ts", "**/*.tsx"],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-        project: "./tsconfig.json",
-      },
-    },
+    // files: ["**/*.ts", "**/*.tsx"],
+    // languageOptions: {
+    //   parser: tsParser,
+    //   parserOptions: {
+    //     ecmaVersion: "latest",
+    //     sourceType: "module",
+    //     project: "./tsconfig.json",
+    //   },
+    // },
     plugins: {
       "@typescript-eslint": tseslint,
     },

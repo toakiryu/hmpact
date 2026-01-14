@@ -98,7 +98,7 @@ const __helperManifestFuncLoadFile = async (
       }
       // JSONファイルの場合
       if (ext === ".jsonc") {
-        const result = await hfs.jsonc.read.byPath(path, {
+        const result = await hfs.readFile(path, {
           schema: manifestSchema.zod,
         });
         if (result.status !== "success") {

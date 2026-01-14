@@ -1,11 +1,18 @@
 import path from "path";
-import { hpath } from "@hmpact/path";
+
+import { userConfigSchema } from "@/schema/config";
 import { hfs } from "@hmpact/fs";
+import { hpath } from "@hmpact/path";
 
 const configPath = path.join(hpath.homedir.hmpact, "config.jsonc");
 
-const loadConfig = async () => {
+export const loadConfig = async () => {
   try {
-    const content = await hfs.readFile(configPath, "utf-8");
+    const content = await hfs.readFile(configPath, {
+      schema: userConfigSchema.zod,
+    });
+    return content;
+  } catch (error) {
+    console.error("Failed to load user config:", error);
   }
-}
+};

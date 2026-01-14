@@ -17,7 +17,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/utils/*": ["./src/utils/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"]
