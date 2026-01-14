@@ -1,10 +1,10 @@
 import { HmpactBanner, logger } from "@hmpact/logger";
 import { hpath } from "@hmpact/path";
+import { createUserConfigCommand } from "@hmpact/user-config";
 import { program } from "commander";
 
 import { hmpactrc } from "~/src/config";
 import { registerBuildInfoCommand } from "@/features/build-info";
-import { createUserConfigCommand } from "@/features/user-config";
 import helper from "@/utils/helper";
 
 // バナー表示

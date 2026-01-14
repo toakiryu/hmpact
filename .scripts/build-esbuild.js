@@ -64,8 +64,8 @@ export async function buildPackage({
         "isomorphic-unfetch",
         "jsonc-parser",
         "ora",
-        "zod",
         "cacache",
+        "enquirer",
       ],
       logLevel: "info",
     });

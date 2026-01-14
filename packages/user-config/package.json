@@ -21,7 +21,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node ../../.scripts/build-esbuild.js",
+    "build": "node ../../.scripts/build-esbuild.js --entries=./src/index.ts,./src/commands/index.ts",
     "typecheck": "tsc --noEmit",
     "t:pack": "pnpm pack",
     "prepack": "pnpm build",
@@ -37,11 +37,18 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs"
+    },
+    "./commands": {
+      "types": "./dist/commands/index.d.ts",
+      "import": "./dist/commands/index.mjs"
     }
   },
   "dependencies": {
     "@hmpact/fs": "workspace:^",
-    "@hmpact/path": "workspace:^"
+    "@hmpact/path": "workspace:^",
+    "commander": "^14.0.2",
+    "enquirer": "^2.4.1",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

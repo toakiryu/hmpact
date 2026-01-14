@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      zod:
-        specifier: ^4.3.5
-        version: 4.3.5
+      enquirer:
+        specifier: ^2.4.1
+        version: 2.4.1
     devDependencies:
       '@types/glob':
         specifier: ^9.0.0
@@ -112,6 +112,9 @@ importers:
       '@hmpact/path':
         specifier: workspace:^
         version: link:../path
+      '@hmpact/user-config':
+        specifier: workspace:^
+        version: link:../user-config
       cacache:
         specifier: ^20.0.3
         version: 20.0.3
@@ -124,6 +127,9 @@ importers:
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
+      enquirer:
+        specifier: ^2.4.1
+        version: 2.4.1
       figlet:
         specifier: ^1.9.4
         version: 1.9.4
@@ -305,6 +311,15 @@ importers:
       '@hmpact/path':
         specifier: workspace:^
         version: link:../path
+      commander:
+        specifier: ^14.0.2
+        version: 14.0.2
+      enquirer:
+        specifier: ^2.4.1
+        version: 2.4.1
+      zod:
+        specifier: ^4.3.5
+        version: 4.3.5
     devDependencies:
       '@types/node':
         specifier: ^24.10.1
@@ -778,6 +793,10 @@ packages:
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
 
+  ansi-colors@4.1.3:
+    resolution: {integrity: sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw==}
+    engines: {node: '>=6'}
+
   ansi-regex@5.0.1:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
@@ -984,6 +1003,10 @@ packages:
 
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
+
+  enquirer@2.4.1:
+    resolution: {integrity: sha512-rRqJg/6gd538VHvR3PSrdRBb/1Vy2YfzHqzvbhGIQpDRKIa4FgV/54b5Q1xYSxOOwKvjXweS26E0Q+nAMwp2pQ==}
+    engines: {node: '>=8.6'}
 
   es-abstract@1.24.1:
     resolution: {integrity: sha512-zHXBLhP+QehSSbsS9Pt23Gg964240DPd6QCf8WpkqEXxQ7fhdZzYsocOr5u7apWonsS5EjZDmTF+/slGMyasvw==}
@@ -2365,6 +2388,8 @@ snapshots:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
+  ansi-colors@4.1.3: {}
+
   ansi-regex@5.0.1: {}
 
   ansi-regex@6.2.2: {}
@@ -2596,6 +2621,11 @@ snapshots:
   emoji-regex@8.0.0: {}
 
   emoji-regex@9.2.2: {}
+
+  enquirer@2.4.1:
+    dependencies:
+      ansi-colors: 4.1.3
+      strip-ansi: 6.0.1
 
   es-abstract@1.24.1:
     dependencies:

@@ -4,7 +4,7 @@ import { userConfigSchema } from "@/schema/config";
 import { hfs } from "@hmpact/fs";
 import { hpath } from "@hmpact/path";
 
-const configPath = path.join(hpath.homedir.hmpact, "config.jsonc");
+const configPath = path.join(hpath.homedir.hmpact, "configs.jsonc");
 
 export const loadConfig = async () => {
   try {
