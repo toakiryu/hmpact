@@ -16,15 +16,25 @@
     "url": "https://github.com/toakiryu/hmpact/issues"
   },
   "scripts": {
+    "nsi": "na npm-scripts-info",
     "check:versions": "node .scripts/check-versions.js",
+    "?check:versions": "各パッケージのバージョン整合性をチェックします。",
     "sync:versions": "node .scripts/sync-versions.js",
-    "w:build": "pnpm -r run build",
-    "w:pack": "pnpm -r run t:pack",
-    "w:typecheck": "pnpm -r run typecheck",
-    "w:lint": "pnpm -r run lint",
+    "?sync:versions": "バージョンの同期を行います。",
+    "w:build": "na -r run build",
+    "?w:build": "ワークスペース全体のビルドを実行します。",
+    "w:pack": "na -r run t:pack",
+    "?w:pack": "ワークスペース全体のパッケージングを実行します。",
+    "w:typecheck": "na -r run typecheck",
+    "?w:typecheck": "ワークスペース全体の型チェックを実行します。",
+    "w:lint": "na -r run lint",
+    "?w:lint": "ワークスペース全体のLintを実行します。",
     "aliasify": "nlx tsx ./.scripts/aliasify-imports.ts",
+    "?aliasify": "インポートパスを整形します。",
     "format": "nr aliasify && eslint --fix && prettier . --write",
-    "demo": "node ./packages/cli/bin/hmpact.mjs"
+    "?format": "コードのフォーマットを行います。",
+    "demo": "node ./packages/cli/bin/hmpact.mjs",
+    "?demo": "CLIの動作確認を行います。"
   },
   "devDependencies": {
     "@types/glob": "^9.0.0",
@@ -37,11 +47,9 @@
     "eslint-plugin-import": "^2.32.0",
     "glob": "^13.0.0",
     "jsonc-parser": "^3.3.1",
+    "npm-scripts-info": "^0.3.9",
     "prettier": "^3.7.4",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.28.0",
-  "dependencies": {
-    "enquirer": "^2.4.1"
-  }
+  "packageManager": "pnpm@10.28.0"
 }
