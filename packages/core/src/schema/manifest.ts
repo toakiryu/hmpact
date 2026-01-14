@@ -1,11 +1,5 @@
 import { z } from "zod";
 
-const __schemaLangPack = z.record(z.string(), z.url());
-
-const __schemaLang = z.object({
-  packs: __schemaLangPack.optional(),
-});
-
 const __schemaRegistryRule = z.object({
   format: z.string(),
   header: z.record(z.string(), z.string()).optional(),
@@ -24,7 +18,6 @@ const __schemaDependenciesSchema = z.record(
 );
 
 const __schemaManifest = z.object({
-  lang: __schemaLang.optional(),
   registries: __schemaRegistriesSchema.optional(),
   dependencies: __schemaDependenciesSchema.optional(),
 });

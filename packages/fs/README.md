@@ -1,14 +1,14 @@
 # @hmpact/fs
 
-ファイルシステムのユーティリティパッケージです。JSON と JSONC ファイルの読み込み機能を提供し、スキーマ検証をサポートしています。
+ファイルシステムのユーティリティパッケージです。JSON と JSONC ファイルの読み込み機能を提供し、Zod スキーマやカスタム検証関数を使用したスキーマ検証をサポートしています。
 
 ## 特徴
 
-- 📄 JSON ファイル読み込み
-- 💬 JSONC（JSON with Comments）ファイル読み込み
-- ✅ Zod スキーマを使用した検証機能
+- 📄 JSON と JSONC ファイルの統合読み込み
+- ✅ Zod スキーマまたはカスタム型ガード関数による検証
 - 🔒 型安全な実装
-- 🛡️ エラーハンドリング
+- 🛡️ エラーハンドリング（ファイル不在、解析エラー、検証エラー）
+- 🎯 統一された API インターフェース
 
 ## インストール
 
@@ -23,7 +23,7 @@ pnpm add @hmpact/fs
 ```typescript
 import { hfs } from "@hmpact/fs";
 
-const result = await hfs.json.read.byPath("./config.json");
+const result = await hfs.readFile("./config.json");
 
 if (result.status === "success") {
   console.log("JSON データ:", result.data);
@@ -41,20 +41,16 @@ if (result.status === "success") {
 ```typescript
 import { hfs } from "@hmpact/fs";
 
-const result = await hfs.jsonc.read.byPath("./config.jsonc");
+const result = await hfs.readFile("./config.jsonc");
 
 if (result.status === "success") {
   console.log("JSONC データ:", result.data);
 }
 ```
 
-## 高度な使い方
+## スキーマ検証
 
-### スキーマ検証付きで読み込み
-
-Zod スキーマまたはカスタム型ガード関数を使用してファイルデータを検証できます。
-
-#### Zod スキーマでの検証
+### Zod スキーマでの検証
 
 ```typescript
 import { hfs } from "@hmpact/fs";
@@ -69,7 +65,7 @@ const configSchema = z.object({
 
 type Config = z.infer<typeof configSchema>;
 
-const result = await hfs.json.read.byPath<Config>("./config.json", {
+const result = await hfs.readFile<Config>("./config.json", {
   schema: configSchema,
 });
 
@@ -78,10 +74,11 @@ if (result.status === "success") {
   console.log("ポート:", result.data.port);
 } else if (result.status === "validation_failed") {
   console.log("検証エラー:", result.message);
+  console.log("詳細:", result.error);
 }
 ```
 
-#### カスタム型ガード関数での検証
+### カスタム型ガード関数での検証
 
 ```typescript
 import { hfs } from "@hmpact/fs";
@@ -111,7 +108,7 @@ function isDatabaseConfig(data: unknown): data is DatabaseConfig {
   );
 }
 
-const result = await hfs.json.read.byPath<DatabaseConfig>("./db-config.json", {
+const result = await hfs.readFile<DatabaseConfig>("./db-config.json", {
   schema: isDatabaseConfig,
 });
 
@@ -134,7 +131,7 @@ const projectConfigSchema = z.object({
 
 type ProjectConfig = z.infer<typeof projectConfigSchema>;
 
-const result = await hfs.jsonc.read.byPath<ProjectConfig>("./tsconfig.jsonc", {
+const result = await hfs.readFile<ProjectConfig>("./tsconfig.jsonc", {
   schema: projectConfigSchema,
 });
 
@@ -145,9 +142,9 @@ if (result.status === "success") {
 
 ## API リファレンス
 
-### `hfs.json.read.byPath(path, options?)`
+### `hfs.readFile<T>(path, options?)`
 
-JSON ファイルをパスから読み込みます。
+JSON または JSONC ファイルをパスから読み込みます。ファイル拡張子（`.json` または `.jsonc`）に基づいて自動的に適切なパーサーが選択されます。
 
 **パラメータ:**
 
@@ -171,44 +168,41 @@ type Response<T = unknown> = {
 
 **ステータスの説明:**
 
-| ステータス          | 説明                                 |
-| ------------------- | ------------------------------------ |
-| `success`           | ファイルが正常に読み込まれました     |
-| `not_found`         | ファイルが見つからないか読み込み失敗 |
-| `error`             | エラーが発生しました                 |
-| `validation_failed` | スキーマ検証に失敗しました           |
+| ステータス          | 説明                                               |
+| ------------------- | -------------------------------------------------- |
+| `success`           | ファイルが正常に読み込まれました                   |
+| `not_found`         | ファイルが見つかりません（ENOENT）                 |
+| `error`             | ファイル読み込みまたはパースエラーが発生しました   |
+| `validation_failed` | スキーマ検証に失敗しました                         |
 
-### `hfs.jsonc.read.byPath(path, options?)`
-
-JSONC（JSON with Comments）ファイルをパスから読み込みます。
-
-**パラメータ:**
+**使用例:**
 
 ```typescript
-path: string;
-options?: {
-  schema?: ZodSchema<T> | ((data: unknown) => data is T);
-}
+// 型検証なし
+const result = await hfs.readFile("./data.json");
+
+// Zod スキーマでの型検証
+const result = await hfs.readFile<MyType>("./config.jsonc", {
+  schema: myZodSchema,
+});
+
+// 型ガード関数での型検証
+const result = await hfs.readFile<MyType>("./config.json", {
+  schema: isMyType,
+});
 ```
 
-**戻り値:**
+## 対応ファイル形式
 
-`hfs.json.read.byPath` と同様の戻り値形式です。
+### JSON（`.json`）
 
-```typescript
-type Response<T = unknown> = {
-  status: "success" | "not_found" | "error" | "validation_failed";
-  message?: string;
-  data?: T;
-  error?: unknown;
-};
-```
+標準的な JSON ファイル形式です。JavaScript の `JSON.parse()` を使用してパースされます。
 
-## JSONC について
+### JSONC（`.jsonc`）
 
-JSONC（JSON with Comments）は、コメント機能を含む JSON の拡張形式です。このパッケージは [jsonc-parser](https://github.com/microsoft/jsonc-parser) を使用して JSONC ファイルを解析しています。
+JSON with Comments の形式です。コメント機能を含む JSON の拡張形式で、[jsonc-parser](https://github.com/microsoft/jsonc-parser) を使用してパースされます。
 
-### JSONC の例
+**JSONC の例:**
 
 ```jsonc
 {
@@ -226,7 +220,7 @@ JSONC（JSON with Comments）は、コメント機能を含む JSON の拡張形
 ## 依存関係
 
 - `jsonc-parser` - JSONC ファイルの解析
-- `zod` - スキーマ検証（オプション）
+- `zod` - スキーマ検証
 
 ## ライセンス
 

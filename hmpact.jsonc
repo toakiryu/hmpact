@@ -1,10 +1,4 @@
 {
-  "lang": {
-    "packs": {
-      "en": "https://raw.githubusercontent.com/toakiryu/hmpact/refs/heads/main/assets/lang/en.jsonc",
-      "ja": "https://raw.githubusercontent.com/toakiryu/hmpact/refs/heads/main/assets/lang/ja.jsonc"
-    }
-  },
   "registries": {
     "motion.dev": {
       "rule": {

@@ -1,7 +1,5 @@
-import _helperJsonFunction from "@/utils/json";
-import _helperJsoncFunction from "@/utils/jsonc";
+import _helperReadFileFunction from "./utils/readFile/main";
 
 export const hfs = {
-  json: _helperJsonFunction,
-  jsonc: _helperJsoncFunction,
+  readFile: _helperReadFileFunction,
 };

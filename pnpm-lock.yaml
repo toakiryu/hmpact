@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      zod:
+        specifier: ^4.3.5
+        version: 4.3.5
     devDependencies:
       '@types/glob':
         specifier: ^9.0.0
@@ -270,6 +274,37 @@ importers:
         version: 5.9.3
 
   packages/path:
+    devDependencies:
+      '@types/node':
+        specifier: ^24.10.1
+        version: 24.10.6
+      esbuild:
+        specifier: ^0.27.1
+        version: 0.27.2
+      eslint:
+        specifier: ^9.39.1
+        version: 9.39.2(jiti@2.6.1)
+      glob:
+        specifier: ^11.0.0
+        version: 11.1.0
+      prettier:
+        specifier: ^3.7.4
+        version: 3.7.4
+      tsx:
+        specifier: ^4.21.0
+        version: 4.21.0
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/user-config:
+    dependencies:
+      '@hmpact/fs':
+        specifier: workspace:^
+        version: link:../fs
+      '@hmpact/path':
+        specifier: workspace:^
+        version: link:../path
     devDependencies:
       '@types/node':
         specifier: ^24.10.1
